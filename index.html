@@ -1,0 +1,207 @@
+<!-- Tosh-Qog'oz-Qaychi o'yini - HTML, CSS va JavaScript asosida -->
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tosh Qog'oz Qaychi</title>
+
+    <!-- CSS USLUBLARI - Sayt ko‘rinishini bezatish uchun -->
+    <style>
+        /* Umumiy sahifa uslubi */
+        body {
+            font-family: Arial, sans-serif; /* Shrift turi */
+            background-color: #ffffff; /* Orqa fon rangi */
+            text-align: center; /* Matn markazga */
+            padding: 30px; /* Ichki bo'sh joy */
+        }
+
+        /* Sarlavha */
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        /* Pastki matn */
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Hisob paneli - foydalanuvchi va kompyuter ballari */
+        .hisob-paneli {
+            display: flex; /* Yonma-yon joylash */
+            justify-content: space-evenly; /* Bo‘shliqlarni teng taqsimlash */
+            margin: 30px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Hisob rangi */
+        .rangg{
+            background-color: #111;
+            padding: 10px;
+            
+        }
+
+        /* Har bir hisob bloki */
+        .hisob-blok {
+            background-color: #333333; /* Qora fon */
+            color: white; /* Matn oq rangda */
+            width: 350px;
+            height: 250px;
+        }
+
+        /* Emoji belgilar */
+        .emoji-belgi {
+            font-size: 90px;
+            margin-top: 10px;
+            color: orange;
+        }
+
+        /* O'yin natijasi */
+        .natija {
+            font-size: 22px;
+            margin: 20px 0;
+            color: #0063ce;
+            font-weight: bold;
+        }
+
+        /* Tanlov tugmalari joylashuvi */
+        .tanlovlar {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Tugmalar orasidagi masofa */
+            margin-top: 20px;
+        }
+
+        /* Tanlov tugmalari (tosh, qog'oz, qaychi) */
+        .tanlov-tugma {
+            background-color: #111;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 30px;
+            color: orange;
+            cursor: pointer;
+            transition: 0.2s; /* Tugmaga bosilganda animatsiya */
+        }
+
+        /* Hover efekti */
+        .tanlov-tugma:hover {
+            background-color: #3d3a3a;
+        }
+
+        /* “Tanlang” matni */
+        .tanla-matni {
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Qayta boshlash tugmasi */
+        .qayta-tugma {
+            margin-top: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0063ce;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .qayta-tugma:hover {
+            background-color: #01448c;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sarlavha va izoh -->
+    <h1>Tosh Qog'oz Qaychi</h1>
+    <p>Omadingizni sinab ko'ring!</p>
+
+    <!-- Hisob paneli: foydalanuvchi va kompyuter ballari -->
+    <div class="hisob-paneli">
+        <div class="hisob-blok">
+            <div class="rangg">Siz: <span id="foydalanuvchi-hisobi">0</span></div>
+            <!-- Foydalanuvchi tanlagan emoji -->
+            <div id="foydalanuvchi-tanlovi" class="emoji-belgi">✊</div>
+        </div>
+        <div class="hisob-blok">
+            <div class="rangg">Kompyuter: <span id="kompyuter-hisobi">0</span></div>
+            <!-- Kompyuter tanlagan emoji -->
+            <div id="kompyuter-tanlovi" class="emoji-belgi">✌️</div>
+        </div>
+    </div>
+
+    <!-- Natija ko'rsatiladigan joy -->
+    <div class="natija" id="natija">Birini tanlang! 😎</div>
+    <div class="tanla-matni">Tanlang! 👇</div>
+
+    <!-- Foydalanuvchi tanlovi tugmalari (emoji orqali) -->
+    <div class="tanlovlar">
+        <button class="tanlov-tugma" onclick="oyna('tosh')">✊</button>
+        <button class="tanlov-tugma" onclick="oyna('qogoz')">✋</button>
+        <button class="tanlov-tugma" onclick="oyna('qaychi')">✌️</button>
+    </div>
+
+    <!-- Qayta boshlash tugmasi -->
+    <button class="qayta-tugma" onclick="qaytaBoshlash()">Qayta boshlash</button>
+
+    <!-- JAVASCRIPT KODI: O'yin mantiqi -->
+    <script>
+        let foydalanuvchiHisob = 0; // Foydalanuvchi balli
+        let kompyuterHisob = 0; // Kompyuter balli
+
+        // O'yin boshlanishi (foydalanuvchi tugmani bosganda ishlaydi)
+        function oyna(foydalanuvchiTanlovi) {
+            const tanlovlar = ['tosh', 'qogoz', 'qaychi']; // Mumkin bo‘lgan tanlovlar
+            const belgi = { tosh: '✊', qogoz: '✋', qaychi: '✌️' }; // Har bir tanlovga mos emoji
+
+            // Kompyuter tasodifiy tanlov qiladi
+            const kompyuterTanlovi = tanlovlar[Math.floor(Math.random() * 3)];
+
+            // Emoji belgilarini yangilash
+            document.getElementById('foydalanuvchi-tanlovi').textContent = belgi[foydalanuvchiTanlovi];
+            document.getElementById('kompyuter-tanlovi').textContent = belgi[kompyuterTanlovi];
+
+            // Natijani aniqlash
+            let natijaMatni = '';
+            if (foydalanuvchiTanlovi === kompyuterTanlovi) {
+                natijaMatni = 'Durrang! 😮';
+            } else if (
+                (foydalanuvchiTanlovi === 'tosh' && kompyuterTanlovi === 'qaychi') ||
+                (foydalanuvchiTanlovi === 'qogoz' && kompyuterTanlovi === 'tosh') ||
+                (foydalanuvchiTanlovi === 'qaychi' && kompyuterTanlovi === 'qogoz')
+            ) {
+                foydalanuvchiHisob++; // Foydalanuvchi yutdi
+                natijaMatni = 'Siz yutdingiz! 🤩';
+            } else {
+                kompyuterHisob++; // Kompyuter yutdi
+                natijaMatni = 'Kompyuter yutdi! 😜';
+            }
+
+            // Ballar va natijani yangilash
+            document.getElementById('foydalanuvchi-hisobi').textContent = foydalanuvchiHisob;
+            document.getElementById('kompyuter-hisobi').textContent = kompyuterHisob;
+            document.getElementById('natija').textContent = natijaMatni;
+        }
+
+        // Qayta boshlash funksiyasi (ballarni 0 ga qaytaradi)
+        function qaytaBoshlash() {
+            foydalanuvchiHisob = 0;
+            kompyuterHisob = 0;
+            document.getElementById('foydalanuvchi-hisobi').textContent = '0';
+            document.getElementById('kompyuter-hisobi').textContent = '0';
+            document.getElementById('foydalanuvchi-tanlovi').textContent = '✊';
+            document.getElementById('kompyuter-tanlovi').textContent = '✌️';
+            document.getElementById('natija').textContent = 'Birini tanlang! 😎';
+        }
+    </script>
+</body>
+</html>
